@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Réparation</title>
+{% endblock %}
+
+{% block content %}
+<br>
+<h1 style="margin-left:2%">Liste des réparations</h1>
+<br>
+<a type="button" class="btn btn-outline-primary" href="/add/reparation" style="margin-left:5%; margin-bottom:2%;">ajouter</a>
+<br>
+<table class="table table-secondary table-striped" style="width:90%; margin-left:5%;">
+    <tr style="text-align:center;">
+            <th>Id</th><th>Nom</th>
+            <th>Immatriculation de la voiture</th><th>Prix de la réparation</th>
+            <th>Date de la réparation</th><th>Type de la réparation</th>
+            <th>Photo</th><th>Operation</th>
+    </tr>
+    {% for ligne in reparations %}
+    <tr style="text-align:center">
+
+        <td> N°{{ ligne.id_reparation }}</td>
+        <td>{{ ligne.libelle_reparation }}</td>
+        <td>{{ ligne.immat_voiture }}</td>
+        <td>{{ ligne.prix_reparation }}</td>
+        <td>{{ ligne.date_reparation }}</td>
+        <td>N°{{ ligne.id_type }} : {{ ligne.libelle_type }}</td>
+        <td>
+        <br>
+            {%  if ligne.photo is not none %}
+                <img style="width:70px;height:70px"  src="{{ url_for('static', filename = 'images/' + ligne['photo']) }}"  alt="photo  de {{ ligne.libelle_reparation }}" >
+            {% else %}
+                <img style="width:70px;height:70px"   src="{{ url_for('static', filename='images/no_photo.jpg')}}"  alt="no photo" >
+            {% endif %}</td>
+        <td>
+            <a type="button" class="btn btn-outline-warning" href="/edit/reparation?id={{ ligne.id_reparation }}">éditer</a>
+            <a type="button" class="btn btn-outline-danger" href="/delete/reparation?id={{ ligne.id_reparation }}">supprimer</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

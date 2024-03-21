@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Modifier Type de Réparation</title>
+{% endblock %}
+
+{% block content %}
+<form action="/type-reparation/edit" method="post" style="width:50%; margin-left:25%; margin-top:5%;">
+    <div class="boxx">
+        <h3 style="text-align:center;">Modification d'un type de réparation</h3>
+        <br>
+        <br>
+
+
+        <input type="hidden" name="id" value="{{ id }}">
+
+        <label for="libelle_type" class="form-label">Nom du type de réparation:</label>
+        <input type="text" class="form-control" name="libelle_type" id="libelle_type" required placeholder="Nom du type de réparation" value="{{type_reparation.libelle_type }}">
+        <br>
+
+
+
+        <label for="logo">Logo :</label>
+                <input type="text" class="form-control" id="logo" name="logo" value="{{ type_reparation.logo }}" placeholder="{{ type_reparation.logo }}">
+
+
+
+    </div>
+    <br><br>
+    <div style="text-align:center;">
+        <button type="submit" class="btn btn-outline-secondary btn-lg" name="valider" style="margin: 2%; transition: 0.5s;"><img src="/static/valider.svg" alt="bouton  valider" style="width:1.5rem;"></button>
+        <button type="reset" class="btn btn-outline-secondary-delete btn-lg" name="reset" style="margin: 2%; transition: 0.5s;"><img src="/static/reset.svg" alt="bouton annuler" style="width:1.5rem;"></button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Filtre</title>
+{% endblock %}
+
+{% block content %}
+<br>
+
+<h1 style="margin-left:2%">Filtres</h1>
+
+
+<form action="/reparation/filtre" method="post">
+    <fieldset>
+        <div class="grid center">
+            <div style="margin-left: 5vh">
+                <legend>Auteurs</legend>
+                {% for ligne in types %}
+                    <div>
+                        <input type="checkbox" id="filter_types" name="filter_types" value={{ ligne.id_type }}
+                        {% set id_ligne = ligne.id_types | string %}
+                        {% if session['filter_types']%}
+                            {{ 'checked' if (id_ligne in session['filter_types']) else ''}}
+                        {% endif %}
+                        >
+                        <label for="{{ ligne.libelle_type }}">{{ ligne.libelle_type }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                <legend>Prix</legend>
+                <div>
+                    <input type="number" step="1" id="filter_prix_min" name="filter_prix_min" placeholder="Min" value="{% if session['filter_prix_min'] %}{{ session['filter_prix_min'] }}{% endif %}">
+                    <input type="number" step="1" id="filter_prix_max" name="filter_prix_max" placeholder="Max" value="{% if session['filter_prix_max'] %}{{ session['filter_prix_max'] }}{% endif %}">
+                </div><br>
+                <div>
+                <legend>Titre</legend>
+                <input type="text" id="filter_word" name="filter_word" placeholder="Titre de la réparation" value="{% if session['filter_word'] %}{{ session['filter_word'] }}{% endif %}">
+                </div><br>
+                <input type="submit" value="Filtrer">
+                <input type="reset" value="Reset">
+            </div>
+        </div>
+    </fieldset><br>
+</form>
+
+
+
+<div class="grid-item">
+    <form action="/reparation/filtre/suppr" method="post">
+        <fieldset>
+            <input type="submit" value="Effacer les filtres">
+        </fieldset>
+    </form>
+</div>
+<br>
+
+
+<br>
+<br>
+
+<h1 style="margin-left:2%">Réparations</h1>
+<br>
+
+<div class="flexbox" style="margin-top: 20px;">
+
+    {% for ligne in reparations %}
+        <div class="card scale-up-center center" style="width: 20rem;">
+
+            <div class="card-body flexitem">
+                <div style="text-align:center">
+
+
+                <h5 class="card-title">{{ ligne.libelle_reparation }} : N°{{ ligne.id_reparation }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ ligne.immat_voiture }} </h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{ ligne.prix_reparation }} €</h6>
+                </div>
+
+                <p class="card-text">
+                    {% if ligne.photo is not none %}
+                        <img class="center" style="width:auto; border: 1px rgb(39, 39, 39) groove ; border-radius: 5%;" src="{{ url_for('static', filename = 'images/' + ligne['photo']) }}"
+                        alt="photo  de {{ ligne.nom }}">
+                    {% else %}
+                        <img class="center" style="width:200px; height:273px;" src="{{ url_for('static', filename='images/logo_sujet_7.png')}}"
+                        alt="no photo">
+                    {% endif %}
+                </p>
+                <hr>
+                <div class="grid">
+                    <div><input type="number" value="0" style="width: 4rem; margin-left: 1rem;" class="noumb"></div>
+                    <div><a href="#" class="btn btn-primary">Ajouter</a></div>
+                </div>
+                <br>
+                <div class="card-footer text-muted">
+                    <p style="text-align: center;">Réparé le : {{ ligne.date_reparation }}</p>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

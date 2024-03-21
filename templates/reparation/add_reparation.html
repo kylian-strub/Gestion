@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Ajouter Réparation</title>
+{% endblock %}
+
+{% block content %}
+<form action="/reparation/add" method="post" style="width:50%; margin-left:25%; margin-top:5%;">
+    <div class="boxx">
+        <h3 style="text-align:center;">Ajout d'une nouvelle réparations</h3>
+        <br>
+        <br>
+
+        <label for="libelle_reparation" class="form-label">Nom de la réparation :</label>
+        <input type="text" class="form-control" name="libelle_reparation" id="libelle_reparation" required placeholder="Nom de la réparation">
+        <br>
+
+        <label for="immat_voiture" class="form-label">Immatriculation de la voiture :</label>
+        <input type="text" class="form-control" name="immat_voiture" id="immat_voiture" required placeholder="Immatriculation de la voiture">
+        <br>
+
+        <label for="prix_reparation" class="form-label">Prix de la réparation :</label>
+        <input type="quantite" class="form-control" name="prix_reparation" id="prix_reparation" required placeholder="Prix de la réparation">
+        <br>
+
+        <label for="date_reparation" class="form-label">Date de la réparation :</label>
+        <input type="date" class="form-control" name="date_reparation" id="date_reparation" required placeholder="Date de la réparation">
+        <br>
+
+        <label for="type_reparation_id" class="form-label">Numéro du type de la reparation :</label>
+        <select name="type_reparation_id" id="type_reparation_id" class="form-control" required>
+            <option value="" disabled selected hidden>Type de la reparation concernée</option>
+            {% for type in reparations1 %}
+            <option value="{{ type.id_type }}">{{ type.id_type }} : {{ type.libelle_type }}</option>
+            {% endfor %}
+        </select>
+    <br>
+
+
+        <label for="photo">Photo :</label>
+                <input type="text" class="form-control" id="photo" name="photo" >
+
+
+    </div>
+    <br><br>
+    <div style="text-align:center;">
+        <button type="submit" class="btn btn-outline-secondary btn-lg" name="valider" style="margin: 2%; transition: 0.5s;"><img src="/static/valider.svg" alt="bouton  valider" style="width:1.5rem;"></button>
+        <button type="reset" class="btn btn-outline-secondary-delete btn-lg" name="reset" style="margin: 2%; transition: 0.5s;"><img src="/static/reset.svg" alt="bouton annuler" style="width:1.5rem;"></button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Types de Réparations</title>
+{% endblock %}
+
+{% block content %}
+<br>
+<h1 style="margin-left:2%">Liste des types de réparations</h1>
+<br>
+<a type="button" class="btn btn-outline-primary" href="/add/type-reparation" style="margin-left:5%; margin-bottom:2%;">ajouter</a>
+<br>
+<table class="table table-secondary table-striped" style="width:90%; margin-left:5%;">
+    <tr style="text-align:center;">
+            <th>Id</th><th>Nom</th><th>Logo</th><th>Nombre de réparations</th><th>Operation</th>
+    </tr>
+    {% for ligne in typeReparations %}
+    <tr style="text-align:center;">
+        <td>{{ ligne.id_type }}</td>
+
+        <td>{{ ligne.libelle_type }}</td>
+
+        <td>
+        <br>
+            {%  if ligne.logo is not none %}
+                <img style="width:40px;height:40px"  src="{{ url_for('static', filename = 'images/' + ligne['logo']) }}"  alt="logo  de {{ ligne.libelle_reparation }}" >
+            {% else %}
+                <img style="width:40px;height:40px"   src="{{ url_for('static', filename='images/no_logo.jpg')}}"  alt="no logo" >
+            {% endif %}</td>
+        <td>{{ ligne.nombre_reparations }}</td>
+
+        <td>
+            <a type="button" class="btn btn-outline-warning" href="/edit/type-reparation?id={{ ligne.id_type }}">éditer</a>
+            <a type="button" class="btn btn-outline-danger" href="/type-reparation/delete?id={{ ligne.id_type }}">supprimer</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

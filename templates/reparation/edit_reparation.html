@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Modifier Réparation</title>
+{% endblock %}
+
+{% block content %}
+<form action="/reparation/edit" method="post" style="width:50%; margin-left:25%; margin-top:5%;">
+    <div class="boxx">
+        <h3 style="text-align:center;">Modification d'une réparation</h3>
+        <br>
+        <br>
+
+        <input type="hidden" name="id" value="{{ id }}">
+        <label for="libelle_reparation" class="form-label">Nom de la réparation:</label>
+        <input type="text" class="form-control" name="libelle_reparation" id="libelle_reparation" required placeholder="Nom de la réparation" value="{{ reparation.libelle_reparation }}">
+        <br>
+
+
+        <label for="immat_voiture" class="form-label">Immatriculation de la voiture</label>
+        <input type="text" class="form-control" name="immat_voiture" id="immat_voiture" required placeholder="Immatriculation de la voiture" value="{{ reparation.immat_voiture }}">
+        <br>
+
+
+        <label for="prix_reparation" class="form-label">Prix de la réparation</label>
+        <input type="quantite" class="form-control" name="prix_reparation" id="prix_reparation" required placeholder="Prix de la réparation" value="{{ reparation.prix_reparation }}">
+        <br>
+
+
+        <label for="date_reparation" class="form-label">Date de la réparation</label>
+        <input type="date" class="form-control" name="date_reparation" id="date_reparation" required placeholder="Date de la réparation" value="{{ reparation.date_reparation }}">
+        <br>
+
+
+
+        <label for="type_reparation_id" class="form-label">Numéro du type de la reparation:</label>
+        <select name="type_reparation_id" id="type_reparation_id" class="form-control" >
+            {% for repa in typesReparations %}
+            <option value="{{ repa.id_type }}" {% if reparation.type_reparation_id is defined and repa.id_type == reparation.type_reparation_id %}selected{% endif %}>{{ repa.id_type }} : {{ repa.libelle_type }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="photo">Photo :</label>
+                <input type="text" class="form-control" id="photo" name="photo" value="{{ reparation.photo }}" placeholder="{{ reparation.photo }}">
+
+
+
+    </div>
+    <br><br>
+    <div style="text-align:center;">
+       <button type="submit" class="btn btn-outline-secondary btn-lg" name="valider" style="margin: 2%; transition: 0.5s;"><img src="/static/valider.svg" alt="bouton  valider" style="width:1.5rem;"></button>
+        <button type="reset" class="btn btn-outline-secondary-delete btn-lg" name="reset" style="margin: 2%; transition: 0.5s;"><img src="/static/reset.svg" alt="bouton annuler" style="width:1.5rem;"></button>
+    </div>
+</form>
+{% endblock %}

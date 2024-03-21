@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Etat - Réparation</title>
+{% endblock %}
+
+{% block content %}
+<br>
+<h1 style="margin-left:2%">Etat des réparations</h1>
+<br>
+<br>
+<h3 style="text-align: center">Recap des données des réparations</h3>
+
+<table class="table table-secondary table-striped" style="width:90%; margin-left:5%;">
+    <tr style="text-align:center;">
+            <th>Nombre total de réparations</th><th>Nombre total de types de réparations</th><th>Total des prix des réparations</th>
+            <th>Prix moyens des réparations</th>
+    </tr>
+    {% for ligne in reparations1 %}
+    <tr style="text-align:center; vertical-align:middle;">
+        <td>{{ ligne.total_reparations }}</td>
+        <td>{{ ligne.nombre_types_reparation }}</td>
+        <td>{{ ligne.total_prix_reparation }}</td>
+        <td>{{ ligne.prix_moyen_reparation }}</td>
+
+
+    </tr>
+    {% endfor %}
+</table>
+
+<br><br>
+<h3 style="text-align: center">Recap des données des types de réparations</h3>
+
+<table class="table table-secondary table-striped" style="width:90%; margin-left:5%;">
+    <tr style="text-align:center;">
+            <th>Types des réparations</th><th>Nombre de réparations</th>
+            <th>Total des prix des réparations</th><th>Prix moyens des réparations</th>
+    </tr>
+    {% for ligne in reparations2 %}
+    <tr style="text-align:center; vertical-align:middle;">
+        <td>N°{{ ligne.id_type }} : {{ ligne.libelle_type }}</td>
+        <td>{{ ligne.nombre_reparations }}</td>
+        <td>{{ ligne.total_prix_reparation }}</td>
+        <td>{{ ligne.prix_moyen_reparation }}</td>
+
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

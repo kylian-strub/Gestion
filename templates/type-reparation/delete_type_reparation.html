@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Supprimer Type de Réparation</title>
+{% endblock %}
+
+{% block content %}
+
+<br>
+<h1 style="margin-left:2%">Suppression des types de réparations</h1>
+
+
+<form action="/type-reparation/delete" method="post" style="width:70%; margin-left:15%; margin-top:5%;">
+
+
+
+    <table class="table table-secondary table-striped" style="width:90%; margin-left:5%;">
+        <tr style="text-align:center;">
+                <th>Nombres de réparations restantes</th>
+        </tr>
+        {% for lignes in repa %}
+        <tr style="text-align:center">
+
+            <td> N°{{ lignes.nombre_reparations }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <table class="table table-secondary table-striped" style="width:90%; margin-left:5%;">
+    <tr style="text-align:center;">
+            <th>Id</th><th>Nom</th>
+            <th>Immat de la voiture</th><th>Prix de la réparation</th>
+            <th>Date de la réparation</th><th>Type de la réparation</th><th>Operation</th>
+    </tr>
+    {% for ligne in reparations %}
+    <tr style="text-align:center">
+
+        <td> N°{{ ligne.id_reparation }}</td>
+        <td>{{ ligne.libelle_reparation }}</td>
+        <td>{{ ligne.immat_voiture }}</td>
+        <td>{{ ligne.prix_reparation }}</td>
+        <td>{{ ligne.date_reparation }}</td>
+        <td>{{ ligne.type_reparation_id }}</td>
+
+        <td>
+            <a type="button" class="btn btn-outline-danger" href="/delete/type-reparation?id={{ ligne.id_reparation }}">supprimer</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</form>
+{% endblock %}
